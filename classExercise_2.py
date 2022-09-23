@@ -22,7 +22,7 @@ class stu_Grades:
         print("Successfully updated:")
         print(str(Grades))
     while(inputFunc!=0):
-        print("Please choose the following functions:")
+        print("Please choose among the following functions:")
         print("1.Add user's grade")
         print("2.Search user's grade")
         print("3.Update user's grade")
