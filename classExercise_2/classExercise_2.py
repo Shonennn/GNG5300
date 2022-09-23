@@ -1,4 +1,4 @@
-#version1 Basic function finished HOWEVER,need to deal with the problem of function's scope 
+#version1 Basic function finished HOWEVER,need to deal with fiel I/O 
 class stu_Grades:
     global Grades
     Grades={'lisa':90,'jack':80}
