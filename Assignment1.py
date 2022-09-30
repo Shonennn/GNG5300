@@ -15,6 +15,13 @@ class course:
         Course.update(tempDict)
         print("Successfully updated:",Course)
 
+    def searchCourse(self):
+        courseNum = input("Input the course number:")
+        print("Here's your search result:", Course.get(courseNum))
+
+    def showCourse(self):
+        print(str(Course))
+
     def delCourse(self):
         courseName=input("Input your Course number to delete:")
         Course.pop(courseName)
@@ -36,8 +43,8 @@ class stu:
     global Student
     global Grades
     global Enroll
-    Student={}
-    Grades={}
+    Student = {'300250':'Alex'}
+    Grades = {'300250':['230','90']}
     Enroll={}
     def enrolCourse(stuNum):
         stuNum=input("Input your student number to confirm:")
@@ -66,6 +73,13 @@ class admin(stu):
         tempDict={stuNum:stuName}
         Student.update(tempDict)
         print("Successfully added:")
+        print(str(Student))
+
+
+    def searchStu(self):
+        stuNum = input("Input the student number:")
+        print("Here's your search result:", Student.get(stuNum))
+    def showStu(self):
         print(str(Student))
 
     def delStu(self):
@@ -105,13 +119,17 @@ class admin(stu):
         print("Here's your search result:",Grades.get(stuNum))
 
     def updateGrades(self):
-        stuNum=input("Input the student number:")
         tempValue=[]
-        grade=input("Input the score:")
-        courseNum=input("Input the coursenumber:")
-        Grades[stuNum]=tempValue[grade,courseNum]
-        print("Successfully updated:")
-        print(str(Grades))
+        stuNum=input("Input the student number:")
+        if stuNum in Grades:
+            courseNum = input("Input the coursenumber:")
+            tempValue.append(courseNum)
+            grade = input("Input the score:")
+            tempValue.append(grade)
+            Grades[stuNum] = tempValue
+            print("Successfully updated:", str(Grades))
+        else:
+            print("This student doesn't exist")
 
 class user:
    
@@ -135,17 +153,21 @@ class user:
                 print("1.Add student")
                 print("2.Update student")
                 print("3.Delete student")
+                print("4.Search student")
+                print("5.Show all students")
                 print("0.Go back to previous menu")
                 userFlag=input()
                 while(userFlag):
                     if userFlag=='1':
                         operater.addStu()
-                        
-                        print(Student)
                     elif userFlag=='2':
                         operater.updateStu()
                     elif userFlag=='3':
                         operater.delStu()
+                    elif userFlag == '4':
+                        operater.searchStu()
+                    elif userFlag == '5':
+                        operater.showStu()
                     elif userFlag=='0':
                         break
                     self.adminMenu()
@@ -156,6 +178,8 @@ class user:
                 print("1.Add course")
                 print("2.Update course")
                 print("3.Delete course")
+                print("4.Search course")
+                print("5.Show all courses")
                 print("0.Go back to previous menu")
                 courseFlag=input()
                 while(courseFlag):
@@ -165,6 +189,10 @@ class user:
                         courfunc.updateCourse()
                     elif courseFlag=='3':
                         courfunc.delCourse()
+                    elif courseFlag == '4':
+                        courfunc.searchCourse()
+                    elif courseFlag == '5':
+                        courfunc.showCourse()
                     elif courseFlag=='0':
                         break
                     self.adminMenu()
