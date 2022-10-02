@@ -1,4 +1,5 @@
 #version1 Basic function finished HOWEVER,need to deal with fiel I/O 
+import sys
 
 class course:
     '''def __init__(self, courseName,courseNum, stuNum):
@@ -46,14 +47,19 @@ class stu:
     Student = {'300250':'Alex'}
     Grades = {'300250':['230','90']}
     Enroll={}
-    def enrolCourse(stuNum):
-        stuNum=input("Input your student number to confirm:")
+    def enrolCourse(self,stuUser):
+        stuNum=''
+        if(userType):
+            stuNum = input("Input the student number to enroll:")
+        else:
+            stuNum=stuUser
         courseNum=input("Input the Course Number you want to enroll:")
         
-        if (stuNum in Enroll & (courseNum!=Student.get(stuNum))): 
+        if ((stuNum in Enroll) & (courseNum!=Student.get(stuNum))): 
             # this is to make sure student and admin can add more than one course
-            # and make sure there is no repeat course being added          
-            tempValue=[Student.get(stuNum)].append(courseNum)
+            # and make sure there is no repeat course being added 
+            tempValue=[Enroll.get(stuNum)]
+            tempValue.append(courseNum)
             tempDict={stuNum:tempValue}
             Enroll.update(tempDict)
         else:
@@ -223,38 +229,44 @@ class user:
                 enrollFlag=input()
                 while(enrollFlag):
                     if enrollFlag=='1':
-                        operater.enrolCourse()
+                        operater.enrolCourse(1)
                     elif enrollFlag=='2':
                         operater.dropCourse()
                     elif enrollFlag=='0':
                         break
                     self.adminMenu()
-            else:
-                break
+            elif inputFunc == '0':
+                sys.exit()
     def stuMenu(self):
         stuOperater=stu()
         enrollFlag=''
         print("Please choose among the following functions:")
         print("1.Enroll course")
         print("2.Drop course")
-        print("0.Go back to previous menu")
-        enrollFlag=input()
+        print("0.exit")
+        enrollFlag = input()
         while(enrollFlag):
             if enrollFlag=='1':
-                stuOperater.enrolCourse()
+                stuOperater.enrolCourse(userNum)
+                self.stuMenu()
             elif enrollFlag=='2':
                 stuOperater.dropCourse()
+                self.stuMenu()
             elif enrollFlag=='0':
                 break
+        
 
-            self.stuMenu()
     def login(self):
+        global userType
+        global userNum
         userNum=input("Input your user number:")
         if(sysuser[userNum]):
             print("Your user type is admin")
+            userType=1
             self.adminMenu()
         else:
             print("Your user type is student")
+            userType=0
             self.stuMenu()
         
 ape=user()
